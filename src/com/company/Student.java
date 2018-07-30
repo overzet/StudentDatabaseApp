@@ -7,11 +7,11 @@ public class Student {
     private String lastName;
     private int gradeYear;
     private String studentID;
+    private String email;
     private String courses;
     private int tuitionBalance = 0;
     private static int costOfCourse = 600;
     private static int id = 1000;
-
 
     public Student() {
         Scanner in = new Scanner(System.in);
@@ -25,10 +25,6 @@ public class Student {
         this.gradeYear = in.nextInt();
 
         setStudentID();
-
-        System.out.println(firstName + " " + lastName + " " + gradeYear + " " + studentID);
-        System.out.println("***********************************");
-
     }
 
     private void setStudentID() {
@@ -42,19 +38,36 @@ public class Student {
             Scanner in = new Scanner(System.in);
             String course = in.nextLine();
             if (!course.equals("Q")) {
-                courses = courses + "\n" + course;
-                tuitionBalance = tuitionBalance + costOfCourse;
+                courses += "\n" + course;
+                tuitionBalance += costOfCourse;
             } else {
-                System.out.println("Break");
                 break;
             }
         }
         while (1 != 0);
+    }
 
-        System.out.println("Enrolled in: " + courses);
-        System.out.println("Tuition balance is: " + tuitionBalance);
+    public void viewBalance() {
+        System.out.println("Your due balance is now: " + tuitionBalance);
+    }
 
+    public void payTuition() {
+        viewBalance();
+        System.out.print("Enter your payment: ");
+        Scanner in = new Scanner(System.in);
+        int payment = in.nextInt();
+        tuitionBalance -= payment;
+        System.out.println("Thank you for your payment of: " + payment);
+        viewBalance();
+    }
 
+    @Override
+    public String toString() {
+        return "Name: " + firstName + " " + lastName +
+                '\n' +"Grade Level: " + gradeYear +
+                '\n' +"Student ID: " + studentID +
+                '\n' +"Courses: " + courses +
+                '\n' +"TuitionBalance: " + tuitionBalance;
     }
 }
 
